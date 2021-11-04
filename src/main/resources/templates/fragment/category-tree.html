@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+<body>
+<div th:fragment="categoryTree">
+    <ul>
+        <li th:each="treeEntry : ${treeEntries}">
+            <div class="flex">
+                <a th:href="@{/product/list(alias=${treeEntry.category.alias})}"
+                   th:text="${treeEntry.category.name}"
+                >
+                    Наименование категории
+                </a>
+
+                <a th:href="@{/category/form(id=${treeEntry.category.id})}" class="ms-1 link-secondary">
+                    <small>| Редактировать</small>
+                </a>
+            </div>
+
+            <div th:replace="~{fragment/category-tree::categoryTree(treeEntries=${treeEntry.subCategories})}"></div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
